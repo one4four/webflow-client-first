@@ -9,4 +9,5 @@ description: Blake's (One4Four) Webflow build standard — Finsweet Client-First
 2. Before you name a class, pick a unit or build a section, read the relevant section of `README.md`, which is the full spec. Before any MCP/API build, read §19 (gotchas).
 3. The `views/` HTML files are visual renderings for people. Don't read rules from them.
 4. `reference/` is comparison material only. Never follow it.
-5. Mockups only need to look right for the brand. Exact Client-First naming applies when converting to Webflow.
+5. Connecting a new project to Webflow (project-scoped MCP server, sign-in, Bridge App): follow `docs/webflow-project-connection.md`.
+6. Mockups only need to look right for the brand. Exact Client-First naming applies when converting to Webflow.
