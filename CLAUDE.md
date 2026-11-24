@@ -53,6 +53,7 @@ Missing any one is a defect to report in chat — never a silent "owed later" li
 3. **Copying an existing pattern? Read its element tree first** (`query_elements`, depth 5–6), then reproduce element-for-element, tags included, and read its bindings. Never rebuild a known pattern from a screenshot, class-name guess or memory. If the pattern already exists on another page, **ask the user to copy-paste it in the Designer** — far cheaper than rebuilding via API.
 4. **Report defects in chat, in the turn they happen** — with the exact Designer click needed. Never bury an owed item in a plan file.
 5. Webflow MCP/API gotchas (`set_style` replaces the class list, `grid-row-gap` not `row-gap`, longhands only, no variable creation via API …) are in `README.md` §19 — read it before any API build.
+6. **Connect each project on its own.** Before the first MCP/API build on a site, set up a project-scoped Webflow server per `docs/webflow-project-connection.md`; never repoint the shared claude.ai connector.
 
 ## Built for handoff (doctrine)
 These sites are handed to the client to manage.
@@ -75,5 +76,6 @@ These sites are handed to the client to manage.
 ## Source of truth
 - `README.md` is the **only** source of rules: structure, type scale, spacing scale, buttons, forms, utilities, breakpoints, variables, class policy, handoff doctrine, container vocabulary (§17), section backgrounds (§18), Webflow API gotchas (§19), units + font-size tiers (§20), section components + client editing (§21), repo layout + brand wiring (§22).
 - `views/Style Guide.html` and `views/Build Standards.html` are visual renderings of the README. If one disagrees with the README, the README wins.
+- `docs/webflow-project-connection.md` is the per-project Webflow connection setup (procedure, not build rules).
 - `reference/` (SML page/section builder) is comparison material only. Never follow it as a rule.
 - Canon: Finsweet Client-First docs (finsweet.com/client-first/docs) + Relume Style Guide for Webflow. Relume's guide = Client-First with a differently organized style-guide page; components in Relume Library follow the naming used here.

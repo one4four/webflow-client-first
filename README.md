@@ -278,7 +278,7 @@ Every section is built the same one way, no new mechanisms: `section_[name]` + t
 **Section done checklist** — a section is not "built" until all five are true in the same turn: (1) `section_[unique-name]`, used nowhere else · (2) `.section-bg` combo applied · (3) Background Patterns instance as FIRST child · (4) Colour Mode set on the section · (5) content wrapper `position: relative; z-index: 1`. Missing any one is a defect to report in chat.
 
 ## 19 · Webflow MCP / API gotchas
-Tool-specific, but they recur on every site.
+Tool-specific, but they recur on every site. Connecting a project to Webflow in the first place: `docs/webflow-project-connection.md`.
 - **`set_style` REPLACES an element's whole class list** — read `styleNames` first, never pass a partial list (a blind `is-left` combo wiped `padding-global` off a hero wrapper).
 - `set_style` only accepts an EXISTING base+combo chain; two independent globals fail. Create the combo (`create_style` with `parent_style_names`) first — or, for a stack of existing globals, use the element builder's `class` attribute, which accepts several.
 - **Gaps must be written `grid-row-gap` / `grid-column-gap`.** Plain `row-gap` / `column-gap` land in the class's Custom Properties panel instead of the native gap control — invisible to anyone editing in the Designer. Same trap as shorthands: `flex`, `transition`, `padding` shorthands are rejected or mis-filed; write longhands only.
@@ -384,6 +384,7 @@ Build for the client managing the site **after you're gone**: they compose pages
 - `CLAUDE.md`: prime directives, the section done checklist and process rules
 - `SKILL.md`: skill entry point (Claude.ai skills and Claude Code)
 - `views/`: standalone HTML renderings, open in any browser
+- `docs/webflow-project-connection.md`: per-project Webflow connection setup for Claude Code (project-scoped hosted MCP server, OAuth sign-in, Bridge App, test, limits). Do it once per project before any MCP/API build.
 - `reference/`: third-party material kept for comparison only (SML page/section builder). Never a source of rules.
 
 **Wiring a brand to this reference (once per brand).** Paste this into the brand's design-system project or repo:
