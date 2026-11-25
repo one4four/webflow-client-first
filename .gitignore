@@ -1,0 +1,6 @@
+# Local Claude Code settings and any secrets never go in the repo
+.claude/settings.local.json
+.env
+.env.*
+*.token
+.DS_Store
