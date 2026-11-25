@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "webflow-{{PROJECT_SLUG}}": {
+      "type": "http",
+      "url": "{{WEBFLOW_MCP_URL}}"
+    }
+  }
+}

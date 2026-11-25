@@ -2,6 +2,20 @@
 
 Brand-agnostic reference for building every Webflow project on **Finsweet Client-First** conventions as shipped in the **Relume Style Guide**. Rendered specimens: `Style Guide.dc.html`. Build rules from real-build audits, rendered: `Build Standards.dc.html`. Values verified against finsweet.com/client-first/docs (2026-08).
 
+## Start a new project
+
+This repo is the starter for every new Webflow project. Each project gets its own copy, with its own Webflow connection that signs in to that one site, separate from the claude.ai Webflow connector.
+
+1. **Make the copy.** On GitHub, open this repo and choose **Use this template > Create a new repository** (private, named for the project). Clone it into the project's local folder, for example `~/Desktop/One4Four, LLC/<Client>/<Project> - Claude Folder`.
+2. **Write the project config.** In Terminal, from the copy's folder, run `scripts/new-project.sh`. It asks for the project name, a short slug (e.g. `opd`), the client and the site, then writes `.mcp.json` with a `webflow-<slug>` server and fills `PROJECT.md`. Add `--eu` for an EU-hosted workspace.
+3. **Sign in to that one site.** Run `claude` in the same folder, choose **Use this MCP server**, type `/mcp`, pick `webflow-<slug>`, choose **Authenticate**, and tick **only this project's site**.
+4. **Open the Bridge App.** Open the site in the Webflow Designer, press **E**, and launch the **MCP Bridge App**. Leave it open while Claude builds.
+5. **Let Claude finish.** Ask Claude to "finish the new project setup". It runs the four connection tests, records the site id in `PROJECT.md`, and commits.
+6. **Start the site** from the Relume Style Guide (Client-First), per §1 and `CLAUDE.md`.
+7. **If CI will talk to Webflow** (for example a DevLink export workflow), add the site token as a GitHub Actions secret named `WEBFLOW_API_TOKEN` on that repo. A token kept only in Supabase Vault is not visible to GitHub Actions.
+
+Project-specific notes go in `PROJECT.md`, never in the rule files, so `scripts/pull-standard.sh` can refresh `CLAUDE.md`, `README.md`, `docs/` and `views/` from this starter whenever the standard changes. Full connection details and limits: `docs/webflow-project-connection.md`.
+
 ## 1 · Page structure
 Every page, always:
 
@@ -384,6 +398,9 @@ Build for the client managing the site **after you're gone**: they compose pages
 - `CLAUDE.md`: prime directives, the section done checklist and process rules
 - `SKILL.md`: skill entry point (Claude.ai skills and Claude Code)
 - `views/`: standalone HTML renderings, open in any browser
+- `PROJECT.md`: the one project-specific file (site, slug, ids, test results, notes). Placeholders in the starter; filled by `scripts/new-project.sh`.
+- `templates/`: `mcp.json` and `PROJECT.md` templates the setup script fills.
+- `scripts/new-project.sh`: writes `.mcp.json` and `PROJECT.md` for a new copy. `scripts/pull-standard.sh`: refreshes the rule files in a copy from this starter.
 - `docs/webflow-project-connection.md`: per-project Webflow connection setup for Claude Code (project-scoped hosted MCP server, OAuth sign-in, Bridge App, test, limits). Do it once per project before any MCP/API build.
 - `reference/`: third-party material kept for comparison only (SML page/section builder). Never a source of rules.
 
@@ -391,4 +408,4 @@ Build for the client managing the site **after you're gone**: they compose pages
 
 > Add a "Webflow · Client-First" section to this design system's guide. All Webflow builds follow the Webflow Client-First Reference at https://github.com/one4four/webflow-client-first. The full spec is in README.md and CLAUDE.md there; link the repo in the section. Record: (1) page structure is page-wrapper → main-wrapper → section_[name] → padding-global → container-* → padding-section-*; (2) never create a new class when a Client-First utility or documented pattern exists; (3) colours, fonts and radii link variables, never raw values: map this brand's tokens into Primitives → Color Schemes 1–5, Typography and UI Styles; (4) custom classes are [component]_[element], lowercase, is-* combos for variants; (5) mockups only need to be visually correct; exact Client-First naming applies when converting to Webflow. For every other rule, read the repo. Don't copy it here.
 
-**Updating.** Rules change in this repo only. Brands link it rather than copying rules, so there's nothing to push to each brand after an edit.
+**Updating.** Rules change in this repo only. Brands link it rather than copying rules, so there's nothing to push to each brand after an edit. Project copies made from the template carry the rule files; run `scripts/pull-standard.sh` in a copy to bring it up to date, review the diff, and commit.

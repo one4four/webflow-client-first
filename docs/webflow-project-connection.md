@@ -6,6 +6,8 @@ Use this when a new Webflow build or client site needs Claude to read or build i
 
 Setup takes about 10 minutes per project. It contains no secrets: the sign-in is OAuth and is stored locally by Claude Code, never in the repo.
 
+**Fast path:** in a copy of this starter repo, run `scripts/new-project.sh`. It does steps 1 and 2 (writes `.mcp.json` and `PROJECT.md`), then continue at step 3. The manual steps below are the same thing by hand.
+
 ## 1. Pick a local project folder
 
 One folder per project on the Mac, for example:
@@ -87,6 +89,17 @@ Only for server-side scripts, never for Designer work.
 4. Never paste a token in chat, a doc, a commit or `.mcp.json`.
 
 Tokens can't build in the Designer, and can't delete pages or components.
+
+## CI exports (GitHub Actions)
+
+A token in Supabase Vault is only readable from inside Supabase. GitHub Actions can't see it, so a workflow that calls Webflow (for example a DevLink component export) needs its own copy:
+
+1. In the project's GitHub repo: Settings > Secrets and variables > Actions > New repository secret.
+2. Name it `WEBFLOW_API_TOKEN` and paste the site token (same scopes as above, plus whatever the export needs).
+3. Reference it in the workflow as `${{ secrets.WEBFLOW_API_TOKEN }}`. Never echo it in a step.
+4. Record the secret's name (not its value) in `PROJECT.md`.
+
+Learned on the OPD build (2026-11-24): the token was in Supabase Vault, and the DevLink export workflow still needed it added as an Actions secret.
 
 ## Known limits
 

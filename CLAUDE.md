@@ -2,6 +2,17 @@
 
 This project is the persistent reference for how Blake builds Webflow sites. It is **brand-agnostic**: no brand colors, fonts, or components live here. When a website project links to this reference, follow these rules.
 
+## New project setup (run this on a fresh copy)
+This repo is also the starter for each new Webflow project. In the starter itself (`one4four/webflow-client-first`), `PROJECT.md` keeps its placeholders on purpose: skip this section there. In a project copy, check `PROJECT.md` at the start of a session:
+- **It still has `{{...}}` placeholders, or `.mcp.json` is missing:** this is a fresh copy. Before any build work, ask Blake for the project name, slug, client and site, then run `scripts/new-project.sh` with those values (add `--eu` for an EU workspace). Then give him the sign-in steps from `docs/webflow-project-connection.md` steps 3 to 7: restart `claude` in this folder, approve the server, `/mcp` > `webflow-<slug>` > Authenticate, tick only this site, launch the MCP Bridge App in the Designer.
+- **Filled in, but the connection test boxes are unticked:** run the four tests in `docs/webflow-project-connection.md` step 8 with the `webflow-<slug>` server, record the site id, workspace and staging URL in `PROJECT.md`, tick the boxes, set Status, and commit. If the server sees more than this one site, stop and ask Blake to re-authenticate with only this site ticked.
+- **Filled in and tested:** read it for the site details and carry on.
+
+Rules for a copy:
+- Use only this folder's `webflow-<slug>` server for this site, never the claude.ai Webflow connector.
+- Project notes go in `PROJECT.md`. Don't edit the rule files (`CLAUDE.md`, `README.md`, `SKILL.md`, `docs/`, `views/`) in a copy; change them in one4four/webflow-client-first and pull them with `scripts/pull-standard.sh`.
+- Secrets never go in the repo, `.mcp.json` or chat. A site token for scripts goes in Supabase Vault; a token CI needs goes in the repo's GitHub Actions secret `WEBFLOW_API_TOKEN` (Actions can't read Vault).
+
 ## Prime directives
 1. Every Webflow site starts from the **Relume Style Guide** (Client-First flavor). Assume its classes, variables, and structure already exist in the project. **Where Relume and Finsweet docs differ, default to Relume's usage** (e.g. `padding-section-*` nested inside the container).
 2. **Never create a new class when an existing utility or documented custom-class pattern can do the job.** Follow the class-creation ladder in `README.md`.
@@ -76,6 +87,6 @@ These sites are handed to the client to manage.
 ## Source of truth
 - `README.md` is the **only** source of rules: structure, type scale, spacing scale, buttons, forms, utilities, breakpoints, variables, class policy, handoff doctrine, container vocabulary (§17), section backgrounds (§18), Webflow API gotchas (§19), units + font-size tiers (§20), section components + client editing (§21), repo layout + brand wiring (§22).
 - `views/Style Guide.html` and `views/Build Standards.html` are visual renderings of the README. If one disagrees with the README, the README wins.
-- `docs/webflow-project-connection.md` is the per-project Webflow connection setup (procedure, not build rules).
+- `docs/webflow-project-connection.md` is the per-project Webflow connection setup (procedure, not build rules). `PROJECT.md` holds the one project's details in a copy.
 - `reference/` (SML page/section builder) is comparison material only. Never follow it as a rule.
 - Canon: Finsweet Client-First docs (finsweet.com/client-first/docs) + Relume Style Guide for Webflow. Relume's guide = Client-First with a differently organized style-guide page; components in Relume Library follow the naming used here.
